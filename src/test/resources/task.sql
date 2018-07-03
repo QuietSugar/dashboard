@@ -1,0 +1,9 @@
+-- 字段：唯一ID,标题，详情
+CREATE TABLE task
+(
+  id VARCHAR(32) PRIMARY KEY NOT NULL COMMENT '唯一ID',
+  url VARCHAR(128) COMMENT '相关URL',
+  title VARCHAR(128) NOT NULL COMMENT '标题',
+  content VARCHAR(1024) COMMENT '内容',
+  remarks VARCHAR(1024) COMMENT '备注'
+);
