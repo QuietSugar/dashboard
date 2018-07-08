@@ -15,16 +15,29 @@ public interface TaskService extends GenericService<Task, String> {
     /**
      * 根据title查询
      *
-     * @param title
-     * @return
+     * @param title title
+     * @return Task
      */
     Task selectByTitle(String title);
 
     /**
-     * 统计个数
+     * @return 统计个数
      */
     Integer count();
 
-
+    /**
+     * 模糊查询
+     *
+     * @param offset 偏移量
+     * @param limit  长度
+     * @param value  迷糊匹配 关键词
+     * @return 列表
+     */
     List<Task> fuzzyQuery(int offset, int limit, String value);
+
+
+    /**
+     * @param id task id
+     */
+    void complete(String id);
 }

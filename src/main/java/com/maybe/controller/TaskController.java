@@ -62,6 +62,16 @@ public class TaskController {
         return String.valueOf(taskService.delete(id));
     }
 
+    /**
+     * 完成任务，或者已归档
+     *
+     * @param id id
+     * @throws Exception
+     */
+    @RequestMapping("task/complete")
+    public void complete(@RequestParam(value = "id") String id) throws Exception {
+        taskService.complete(id);
+    }
 
     @RequestMapping("task/add")
     public String add(Task task) throws Exception {

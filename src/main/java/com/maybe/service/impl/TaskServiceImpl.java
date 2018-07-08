@@ -7,6 +7,7 @@ import com.maybe.generic.GenericDao;
 import com.maybe.generic.GenericServiceImpl;
 import com.maybe.pojo.Task;
 import com.maybe.pojo.TaskExample;
+import com.maybe.pojo.enumeration.TaskStatus;
 import com.maybe.service.TaskService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -78,6 +79,14 @@ public class TaskServiceImpl extends GenericServiceImpl<Task, String> implements
             example.or(criteria3);
         }
         return taskMapper.selectByExample(example);
+    }
+
+    @Override
+    public void complete(String id) {
+        Task task = new Task();
+        task.setId(id);
+        task.setStatus(TaskStatus.OVERED.getStatus());
+        taskMapper.updateByPrimaryKeySelective(task);
     }
 
 }

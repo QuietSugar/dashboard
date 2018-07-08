@@ -55,10 +55,8 @@ $(function () {
         "searching": false,
         "columns": [
             {"data": null}, //因为要加行号，所以要多一列，不然会把第一列覆盖
-            {"data": "url"},
             {"data": "title"},
             {"data": "content"},
-            {"data": "remarks"},
             {"data": null}
         ],
         // dt默认是第一列升序排列 这里第一列为序号列，所以设置为不排序，并把默认的排序列tru面
@@ -70,8 +68,8 @@ $(function () {
                 "targets": [0. - 1]
             },
             {
-                //下标是5的列
-                "targets": 5,
+                //下标是4的列
+                "targets": 3,
                 "render": function (a, b, c, d) {
                     var context =
                     {
@@ -81,7 +79,8 @@ $(function () {
                                 "fn": "edit(\'" + c.id + "\',\'" + c.url + "\',\'" + c.title + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
                                 "type": "primary"
                             },
-                            {"name": "删除", "fn": "del(\'" + c.id + "\')", "type": "danger"}
+                            {"name": "删除", "fn": "del(\'" + c.id + "\')", "type": "danger"},
+                            {"name": "完成", "fn": "complete(\'" + c.id + "\')", "type": "danger"}
                         ]
                     };
                     return template(context);
@@ -240,6 +239,20 @@ function ajax(obj) {
 function del(id) {
     $.ajax({
         url: "/task/del",
+        data: {
+            "id": id
+        }, success: function (data) {
+            table.ajax.reload();
+        }
+    });
+}
+/**
+ * 任务完成
+ * @param id
+ */
+function complete(id) {
+    $.ajax({
+        url: "/task/complete",
         data: {
             "id": id
         }, success: function (data) {
