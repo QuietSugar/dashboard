@@ -7,6 +7,7 @@
     <groupId>com.maybe</groupId>
     <artifactId>dashboard</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
     <properties>
         <!-- base setting -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,7 +38,7 @@
 
         <!--数据库信息-->
         <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-        <jdbc.url>jdbc:mysql://localhost:3306/todo</jdbc.url>
+        <jdbc.url>jdbc:mysql://192.168.0.115:3306/todo</jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password>123456</jdbc.password>
 
