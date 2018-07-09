@@ -4,7 +4,6 @@
  */
 
 var table;
-var editFlag = false;
 $(function () {
     //时间选择  渲染
     // $('#content').datetimepicker();
@@ -14,7 +13,7 @@ $(function () {
     var template = Handlebars.compile(tpl);
 
     table = $('#example').DataTable({
-        "processing": true,//刷新的那个对话框
+        "processing": false,//刷新的那个对话框
         "serverSide": true,  //设置为服务端分页，会自动将必要参数传到服务器
         "paging": true,//开启分页
         lengthMenu: [ //自定义分页长度
@@ -23,7 +22,7 @@ $(function () {
         ],
         ordering: false,
         "ajax": {
-            "url": requestPath+"task/list",
+            "url": requestPath + "task/list",
             "type": "POST",
             "data": function (d) {
                 //删除多余请求参数
@@ -72,17 +71,17 @@ $(function () {
                 "targets": 3,
                 "render": function (a, b, c, d) {
                     var context =
-                    {
-                        func: [
-                            {
-                                "name": "修改",
-                                "fn": "edit(\'" + c.id + "\',\'" + c.url + "\',\'" + c.title + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
-                                "type": "primary"
-                            },
-                            {"name": "删除", "fn": "del(\'" + c.id + "\')", "type": "danger"},
-                            {"name": "完成", "fn": "complete(\'" + c.id + "\')", "type": "danger"}
-                        ]
-                    };
+                        {
+                            func: [
+                                {
+                                    "name": "修改",
+                                    "fn": "edit(\'" + c.id + "\',\'" + c.url + "\',\'" + c.title + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
+                                    "type": "primary"
+                                },
+                                {"name": "删除", "fn": "del(\'" + c.id + "\')", "type": "danger"},
+                                {"name": "完成", "fn": "complete(\'" + c.id + "\')", "type": "danger"}
+                            ]
+                        };
                     return template(context);
                 }
             }
@@ -105,7 +104,7 @@ $(function () {
         "<'row'<'col-xs-6'i><'col-xs-6'p>>",
         "initComplete": function () {
             $("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp')
-                //点击“添加”，新增的模态框
+            //点击“添加”，新增的模态框
                 .append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
             $("#datainit").on("click", initData);
         }
@@ -133,42 +132,27 @@ $(function () {
         });
     }).draw();
 
-    $("#save").click(add);
+    $("#save").click(function () {
+        /**
+         * 加载数据
+         **/
+        let addJson = {
+            "id": $("#id").val(),
+            "url": $("#url").val(),
+            "title": $("#title").val(),
+            "content": $("#content").val(),
+            "remarks": $("#remarks").val()
+        };
 
-    $("#initData").click(initSingleData);
-
+        let functionName;
+        if (addJson.id == null) {
+            functionName = "add";
+        } else {
+            functionName = "edit";
+        }
+        ajaxData(functionName, addJson);
+    });
 });
-
-/**
- * 初始化基础数据
- */
-function initData() {
-    var flag = confirm("本功能将添加数据到数据库，你确定要添加么？");
-    if (flag) {
-        $.ajax({
-            url: requestPath+"task/init",
-            data: {
-                "num": 10
-            },
-            success: function (data) {
-                table.ajax.reload();
-                clear();
-            }
-        });
-    }
-}
-
-/**
- * 初始化基础数据
- */
-function initSingleData() {
-    $("#id").val("http://datatables.club");
-    $("#url").val("成都");
-    $("#title").val("10000");
-    $("#content").val("2016/7/10");
-    $("#remarks").val("java");
-}
-
 /**
  * 清除
  */
@@ -178,29 +162,12 @@ function clear() {
     $("#title").val("");
     $("#content").val("");
     $("#remarks").val("");
-    editFlag = false;
-}
-
-/**
- * 添加数据
- **/
-function add() {
-    var addJson = {
-        "id": $("#id").val(),
-        "url": $("#url").val(),
-        "title": $("#title").val(),
-        "content": $("#content").val(),
-        "remarks": $("#remarks").val()
-    };
-
-    ajax(addJson);
 }
 
 /**
  *编辑方法
  **/
 function edit(id, url, title, content, remarks) {
-    editFlag = true;
     $("#myModalLabel").text("修改");
     $("#id").val(id).attr("disabled", true);
     $("#url").val(url);
@@ -210,11 +177,13 @@ function edit(id, url, title, content, remarks) {
     $("#myModal").modal("show");
 }
 
-function ajax(obj) {
-    var url = requestPath+"task/add";
-    if (editFlag) {
-        url = requestPath+"task/edit";
-    }
+/**
+ * 提交数据，修改或新增
+ * @param functionName 方法名，add或者edit
+ * @param obj
+ */
+function ajaxData(functionName, obj) {
+    let url = requestPath + "task/" + functionName;
     $.ajax({
         url: url,
         data: {
@@ -238,22 +207,25 @@ function ajax(obj) {
  * @param id
  */
 function del(id) {
-    $.ajax({
-        url: requestPath+"task/del",
-        data: {
-            "id": id
-        }, success: function (data) {
-            table.ajax.reload();
-        }
-    });
+    if (confirm("将要删除一条记录，你确定要添加么？")) {
+        $.ajax({
+            url: requestPath + "task/del",
+            data: {
+                "id": id
+            }, success: function (data) {
+                table.ajax.reload();
+            }
+        });
+    }
 }
+
 /**
  * 任务完成
  * @param id
  */
 function complete(id) {
     $.ajax({
-        url: requestPath+"task/complete",
+        url: requestPath + "task/complete",
         data: {
             "id": id
         }, success: function (data) {

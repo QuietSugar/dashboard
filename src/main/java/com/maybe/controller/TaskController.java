@@ -2,6 +2,7 @@ package com.maybe.controller;
 
 import com.github.pagehelper.Page;
 import com.maybe.pojo.Task;
+import com.maybe.pojo.enumeration.TaskStatus;
 import com.maybe.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,9 +75,10 @@ public class TaskController {
     }
 
     @RequestMapping("task/add")
-    public String add(Task task) throws Exception {
-
-        return String.valueOf(taskService.insert(task));
+    public void add(Task task) {
+        task.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        task.setStatus(TaskStatus.INIT.getStatus());
+        taskService.insert(task);
     }
 
     /**
