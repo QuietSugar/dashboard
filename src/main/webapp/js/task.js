@@ -23,7 +23,7 @@ $(function () {
         ],
         ordering: false,
         "ajax": {
-            "url": "task/list",
+            "url": requestPath+"task/list",
             "type": "POST",
             "data": function (d) {
                 //删除多余请求参数
@@ -146,7 +146,7 @@ function initData() {
     var flag = confirm("本功能将添加数据到数据库，你确定要添加么？");
     if (flag) {
         $.ajax({
-            url: "task/init",
+            url: requestPath+"task/init",
             data: {
                 "num": 10
             },
@@ -211,9 +211,9 @@ function edit(id, url, title, content, remarks) {
 }
 
 function ajax(obj) {
-    var url = "task/add";
+    var url = requestPath+"task/add";
     if (editFlag) {
-        url = "task/edit";
+        url = requestPath+"task/edit";
     }
     $.ajax({
         url: url,
@@ -239,7 +239,7 @@ function ajax(obj) {
  */
 function del(id) {
     $.ajax({
-        url: "task/del",
+        url: requestPath+"task/del",
         data: {
             "id": id
         }, success: function (data) {
@@ -253,7 +253,7 @@ function del(id) {
  */
 function complete(id) {
     $.ajax({
-        url: "task/complete",
+        url: requestPath+"task/complete",
         data: {
             "id": id
         }, success: function (data) {
