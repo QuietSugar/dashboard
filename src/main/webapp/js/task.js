@@ -6,8 +6,8 @@
 var table;
 var editFlag = false;
 $(function () {
-
-    $('#content').datetimepicker();
+    //时间选择  渲染
+    // $('#content').datetimepicker();
 
     var tpl = $("#tpl").html();
     //预编译模板
@@ -104,8 +104,9 @@ $(function () {
         "t" +
         "<'row'<'col-xs-6'i><'col-xs-6'p>>",
         "initComplete": function () {
-            $("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp');
-            $("#mytool").append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
+            $("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp')
+                //点击“添加”，新增的模态框
+                .append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
             $("#datainit").on("click", initData);
         }
 
