@@ -160,6 +160,11 @@ public class MyCommentGenerator implements CommentGenerator {
     }
 
     @Override
+    public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+
+    }
+
+    @Override
     public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
         if (suppressAllComments) {
             return;

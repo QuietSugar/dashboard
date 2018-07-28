@@ -42,7 +42,7 @@
         </javaClientGenerator>
 
         <!--对应数据库表名 -->
-        <table tableName="task">
+        <table tableName="command_demo">
 
         </table>
     </context>
