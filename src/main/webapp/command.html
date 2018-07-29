@@ -47,13 +47,16 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="name" placeholder="标题">
+                    <input type="text" class="form-control" id="name" placeholder="命令名">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="content" placeholder="内容">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="type" placeholder="类别">
+                    <select class="form-control" id="type">
+                        <option>Linux</option>
+                        <option>Windows</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="parameter" placeholder="参数">
@@ -72,13 +75,51 @@
 
 </body>
 </html>
+<script src="js/conf.js"></script>
+<script src="js/common/util.js"></script>
 <!--定义操作列按钮模板-->
 <!--说下这里使用模板的作用，除了显示和数据分离好维护以外，绑定事件和传值也比较方便，希望大家能不拼接html则不拼接-->
 <script id="tpl" type="text/x-handlebars-template">
     {{#each func}}
-    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+        {{#if_type this.type}}
+            <button type="button" class="btn btn-{{this.btn-type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+        {{else}}
+            <a class="btn btn-{{this.btn-type}} btn-sm" href="{{this.url}}" role="button" target="_black">{{this.name}}</a>
+        {{/if_type}}
     {{/each}}
 </script>
 
-<script src="js/conf.js"></script>
+
+<script id="flow_history_template" type="text/x-handlebars-template">
+    {{#each this}}
+    {{#if tit}}
+    {{#compare @index 0}}
+    <li>
+        {{else}}
+    <li class="ico_02">
+        {{/compare}}
+        <div class="tit">{{tit}}</div>
+        <div class="time">{{time}}</div>
+        <div class="bd">
+            <p><!-- 处理人 --><t:mutiLang langKey="common.processer"/>：{{name}}</p>
+            <p><!-- 处理结果 --><t:mutiLang langKey="common.result_of_processing"/>：<span class="blue">{{result}}</span></p>
+            {{#if_more_than_ten content}}
+            <p style="display:black;">
+                <!-- 处理内容 --><t:mutiLang langKey="common.processer_content"/>：{{subcontent content}}
+                <span class="more"><img src="<%=basePath%>/webpage/letv_common/mobile/images/ico_arrow_down.png" width="16" height="16" alt=""/>展开</span>
+            </p>
+            <p style="display:none;">
+                <!-- 处理内容 --><t:mutiLang langKey="common.processer_content"/>：{{content}}
+                <span class="more"><img src="<%=basePath%>/webpage/letv_common/mobile/images/ico_arrow_up.png" width="16" height="16" alt=""/>收起</span>
+            </p>
+            {{else}}
+            <p style="display:black;">
+                <!-- 处理内容 --><t:mutiLang langKey="common.processer_content"/>：{{content}}
+            </p>
+            {{/if_more_than_ten}}
+        </div>
+    </li>
+    {{/if}}
+    {{/each}}
+</script>
 <script src="js/command.js"></script>

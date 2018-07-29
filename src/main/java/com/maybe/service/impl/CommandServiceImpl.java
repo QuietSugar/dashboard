@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,7 +55,7 @@ public class CommandServiceImpl extends GenericServiceImpl<Command, String> impl
         CommandExample example = new CommandExample();
         example.createCriteria().andNameEqualTo(name);
         final List<Command> list = commandMapper.selectByExample(example);
-        return list.get(0);
+        return list.size() < 1 ? null : list.get(0);
     }
 
     @Override

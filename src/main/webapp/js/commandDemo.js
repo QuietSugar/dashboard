@@ -3,15 +3,19 @@
  * Maybe has infinite possibilities
  */
 
-var table;
-var command;
-    $(function () {
-    //时间选择  渲染
-    // $('#content').datetimepicker();
+let table;
+let command;
+$(function () {
+    //init
 
-      command = getURLParameter("commandId");
-    if (command) {
-        console.log(command);
+    let commandName = getURLParameter("commandName");
+    let commandId = getURLParameter("commandId");
+    if (commandName) {
+        console.log("commandName is:" + commandName);
+        initDataByName(commandName);
+    } else if (commandId) {
+        console.log("commandId is:" + commandId);
+        initDataById(commandId);
     } else {
         console.log("命令不存在!");
         return;
@@ -64,7 +68,7 @@ var command;
         "searching": false,
         "columns": [
             {"data": null}, //因为要加行号，所以要多一列，不然会把第一列覆盖
-            {"data": "name"},
+            {"data": "description"},
             {"data": "content"},
             {"data": null}
         ],
@@ -85,7 +89,7 @@ var command;
                             func: [
                                 {
                                     "name": "修改",
-                                    "fn": "edit(\'" + c.id + "\',\'" + c.url + "\',\'" + c.name + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
+                                    "fn": "edit(\'" + c.id + "\',\'" + c.commandId + "\',\'" + c.description + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
                                     "type": "primary"
                                 },
                                 {"name": "删除", "fn": "del(\'" + c.id + "\')", "type": "danger"},
@@ -115,9 +119,10 @@ var command;
         "initComplete": function () {
             $("#mytool").append('<button id="delete" type="button" class="btn btn-primary btn-sm">删除</button>&nbsp')
             //点击“添加”，新增的模态框
-                .append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
+                .append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" id="showAdd">添加</button>');
 
             $("#delete").on("click", {id: "id"}, del);
+            $("#showAdd").on("click", showAdd);
         }
 
     });
@@ -149,8 +154,8 @@ var command;
          **/
         let addJson = {
             "id": $("#id").val(),
-            "url": $("#url").val(),
-            "name": $("#name").val(),
+            "commandId": $("#commandId").val(),
+            "description": $("#description").val(),
             "content": $("#content").val(),
             "remarks": $("#remarks").val()
         };
@@ -163,6 +168,10 @@ var command;
         }
         ajaxData(functionName, addJson);
     });
+
+    $("#clear").click(function () {
+        clear();
+    });
 });
 
 /**
@@ -170,8 +179,8 @@ var command;
  */
 function clear() {
     $("#id").val("").attr("disabled", false);
-    $("#url").val("");
-    $("#name").val("");
+    $("#commandId").val("");
+    $("#description").val("");
     $("#content").val("");
     $("#remarks").val("");
 }
@@ -179,14 +188,24 @@ function clear() {
 /**
  *编辑方法
  **/
-function edit(id, url, name, content, remarks) {
+function edit(id, commandId, description, content, remarks) {
     $("#myModalLabel").text("修改");
     $("#id").val(id).attr("disabled", true);
-    $("#url").val(url);
-    $("#name").val(name);
+    $("#commandId").val(commandId);
+    $("#description").val(description);
     $("#content").val(content);
     $("#remarks").val(remarks);
     $("#myModal").modal("show");
+}
+
+/**
+ *点击新增展示框
+ **/
+function showAdd() {
+    $("#myModalLabel").text("新增");
+    console.log("----------");
+    $("#id").hide();
+    $("#commandId").val(id).attr("disabled", true);
 }
 
 /**
@@ -195,13 +214,13 @@ function edit(id, url, name, content, remarks) {
  * @param obj
  */
 function ajaxData(functionName, obj) {
-    let url = requestPath + "commandDemo/" + functionName;
+    let commandId = requestPath + "commandDemo/" + functionName;
     $.ajax({
         url: url,
         data: {
             "id": obj.id,
-            "url": obj.url,
-            "name": obj.name,
+            "commandId": obj.commandId,
+            "description": obj.description,
             "content": obj.content,
             "remarks": obj.remarks
         }, success: function (data) {
@@ -248,9 +267,32 @@ function detail(id) {
 }
 
 /**
- * init
- * @param id
+ * init : get current command info by name
  */
-function initData() {
-    console.log("initData function")
+function initDataByName(commandName) {
+    console.log("init .....");
+    $.ajax({
+        url: requestPath + "command/name/" + commandName,
+        async: false,
+        success: function (data) {
+            command = data;
+            console.log("current command is : \n" + command);
+        }
+    });
 }
+
+/**
+ * init : get current command info by id
+ */
+function initDataById(commandId) {
+    console.log("init .....");
+    $.ajax({
+        url: requestPath + "command/id/" + commandId,
+        async: false,
+        success: function (data) {
+            command = data;
+            console.log("current command is : \n" + command);
+        }
+    });
+}
+

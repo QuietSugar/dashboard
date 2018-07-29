@@ -12,9 +12,14 @@ public class CommandDemo {
     private String commandId;
 
     /**
-     * 内容：demo的详细说明
+     * demo
      */
     private String content;
+
+    /**
+     * 内容：demo的详细说明
+     */
+    private String description;
 
     /**
      * 备注
@@ -54,19 +59,35 @@ public class CommandDemo {
     }
 
     /**
-     * 内容：demo的详细说明
-     * @return content 内容：demo的详细说明
+     * demo
+     * @return content demo
      */
     public String getContent() {
         return content;
     }
 
     /**
-     * 内容：demo的详细说明
-     * @param content 内容：demo的详细说明
+     * demo
+     * @param content demo
      */
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    /**
+     * 内容：demo的详细说明
+     * @return description 内容：demo的详细说明
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * 内容：demo的详细说明
+     * @param description 内容：demo的详细说明
+     */
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     /**

@@ -76,10 +76,21 @@ $(function () {
                                 {
                                     "name": "修改",
                                     "fn": "edit(\'" + c.id + "\',\'" + c.url + "\',\'" + c.name + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
-                                    "type": "primary"
+                                    "btn-type": "primary",
+                                    "type": "button"
                                 },
-                                {"name": "删除", "fn": "del(\'" + c.id + "\')", "type": "danger"},
-                                {"name": "详情", "fn": "detail(\'" + c.id + "\')", "type": "primary"}
+                                {
+                                    "name": "删除",
+                                    "fn": "del(\'" + c.id + "\')",
+                                    "btn-type": "danger",
+                                    "type": "button"
+                                },
+                                {
+                                    "name": "详情",
+                                    "url":requestPath + "commandDemo.html?commandId="+c.id,
+                                    "btn-type": "primary",
+                                    "type": "url"
+                                }
                             ]
                         };
                     return template(context);

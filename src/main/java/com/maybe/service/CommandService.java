@@ -13,12 +13,20 @@ public interface CommandService extends GenericService<Command, String> {
 
 
     /**
-     * 根据title查询
+     * 根据name查询
      *
      * @param name name
      * @return Command
      */
     Command selectByName(String name);
+
+    /**
+     * 根据commandId查询
+     *
+     * @param id id
+     * @return Command
+     */
+    Command selectById(String id);
 
     /**
      * @return 统计个数

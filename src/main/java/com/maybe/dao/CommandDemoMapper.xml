@@ -5,6 +5,7 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="command_id" jdbcType="VARCHAR" property="commandId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, command_id, content, remarks
+    id, command_id, content, description, remarks
   </sql>
   <select id="selectByExample" parameterType="com.maybe.pojo.CommandDemoExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.maybe.pojo.CommandDemo">
     insert into command_demo (id, command_id, content, 
-      remarks)
+      description, remarks)
     values (#{id,jdbcType=VARCHAR}, #{commandId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{remarks,jdbcType=VARCHAR})
+      #{description,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.maybe.pojo.CommandDemo">
     insert into command_demo
@@ -115,6 +116,9 @@
       </if>
       <if test="content != null">
         content,
+      </if>
+      <if test="description != null">
+        description,
       </if>
       <if test="remarks != null">
         remarks,
@@ -129,6 +133,9 @@
       </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
@@ -153,6 +160,9 @@
       <if test="record.content != null">
         content = #{record.content,jdbcType=VARCHAR},
       </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
       </if>
@@ -166,6 +176,7 @@
     set id = #{record.id,jdbcType=VARCHAR},
       command_id = #{record.commandId,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
       remarks = #{record.remarks,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -180,6 +191,9 @@
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
@@ -190,6 +204,7 @@
     update command_demo
     set command_id = #{commandId,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
       remarks = #{remarks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>

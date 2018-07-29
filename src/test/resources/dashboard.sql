@@ -20,7 +20,7 @@ CREATE TABLE command
   id        VARCHAR(32) PRIMARY KEY NOT NULL
   COMMENT '唯一ID',
   name      VARCHAR(128)            NOT NULL
-  COMMENT '标题',
+  COMMENT '命令名',
   content   VARCHAR(1024) COMMENT '内容：命令的详细说明',
   type      VARCHAR(8) COMMENT '类别：用于区分平台，windows，linux，mac等',
   parameter VARCHAR(1024) COMMENT '支持的参数',
@@ -35,6 +35,7 @@ CREATE TABLE command_demo
   COMMENT '唯一ID',
   command_id      VARCHAR(128)            NOT NULL
   COMMENT '命令表的ID',
-  content   VARCHAR(1024) COMMENT '内容：demo的详细说明',
+  content   VARCHAR(1024) COMMENT 'demo',
+  description   VARCHAR(1024) COMMENT '内容：demo的详细说明',
   remarks   VARCHAR(1024) COMMENT '备注'
 );

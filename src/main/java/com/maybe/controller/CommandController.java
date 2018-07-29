@@ -5,6 +5,7 @@ import com.maybe.pojo.Command;
 import com.maybe.service.CommandService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,7 @@ public class CommandController {
             @RequestParam(value = "length", defaultValue = "10") Integer limit,
             //关键词
             @RequestParam(value = "keyword", defaultValue = "") String keyword
-    )  {
+    ) {
         List<Command> commandList = commandService.fuzzyQuery(offset, limit, keyword);
         //总记录数
         long totalNum = ((Page) commandList).getTotal();
@@ -62,8 +63,14 @@ public class CommandController {
         command.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         commandService.insert(command);
     }
-    @RequestMapping("command/info")
-    public void info(String name) {
-        commandService.selectByName(name);
+
+    @RequestMapping("command/id/{id}")
+    public Command selectById(@PathVariable("id") String id) {
+        return commandService.selectById(id);
+    }
+
+    @RequestMapping("command/name/{name}")
+    public Command selectByName(@PathVariable("name") String name) {
+        return commandService.selectByName(name);
     }
 }

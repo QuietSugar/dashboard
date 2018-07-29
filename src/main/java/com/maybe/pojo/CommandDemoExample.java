@@ -21,7 +21,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public CommandDemoExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -29,7 +29,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -37,7 +37,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -45,7 +45,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -53,7 +53,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public boolean isDistinct() {
         return distinct;
@@ -61,7 +61,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -69,7 +69,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -77,7 +77,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -87,7 +87,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -99,7 +99,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -108,7 +108,7 @@ public class CommandDemoExample {
 
     /**
      *
-     * @mbggenerated 2018-07-27
+     * @mbggenerated 2018-07-28
      */
     public void clear() {
         oredCriteria.clear();
@@ -117,7 +117,7 @@ public class CommandDemoExample {
     }
 
     /**
-     * command_demo 2018-07-27
+     * command_demo 2018-07-28
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -370,6 +370,76 @@ public class CommandDemoExample {
             return (Criteria) this;
         }
 
+        public Criteria andDescriptionIsNull() {
+            addCriterion("description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIsNotNull() {
+            addCriterion("description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionEqualTo(String value) {
+            addCriterion("description =", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotEqualTo(String value) {
+            addCriterion("description <>", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThan(String value) {
+            addCriterion("description >", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("description >=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThan(String value) {
+            addCriterion("description <", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("description <=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("description like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("description not like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIn(List<String> values) {
+            addCriterion("description in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotIn(List<String> values) {
+            addCriterion("description not in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionBetween(String value1, String value2) {
+            addCriterion("description between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
+            addCriterion("description not between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarksIsNull() {
             addCriterion("remarks is null");
             return (Criteria) this;
@@ -452,7 +522,7 @@ public class CommandDemoExample {
     }
 
     /**
-     * command_demo 2018-07-27
+     * command_demo 2018-07-28
      */
     public static class Criterion {
         private String condition;
