@@ -10,11 +10,11 @@
     <properties url="${mybatis.generator.generatorConfig.properties}"/>
 
     <!--数据库驱动包路径 -->
-    <classPathEntry location="${jar.path}"/>
+    <!--<classPathEntry location="${jar.path}"/>-->
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <!--关闭注释 -->
-        <commentGenerator type="com.maybe.plugin.MyCommentGenerator">
+        <commentGenerator type="com.maybe.plugin.mybatis.SugarCommentGenerator">
             <property name="suppressAllComments" value="false"/>
             <!--不使用时间戳  -->
             <property name="suppressDate" value="false"/>

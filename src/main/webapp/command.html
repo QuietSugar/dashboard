@@ -88,38 +88,4 @@
         {{/if_type}}
     {{/each}}
 </script>
-
-
-<script id="flow_history_template" type="text/x-handlebars-template">
-    {{#each this}}
-    {{#if tit}}
-    {{#compare @index 0}}
-    <li>
-        {{else}}
-    <li class="ico_02">
-        {{/compare}}
-        <div class="tit">{{tit}}</div>
-        <div class="time">{{time}}</div>
-        <div class="bd">
-            <p><!-- 处理人 --><t:mutiLang langKey="common.processer"/>：{{name}}</p>
-            <p><!-- 处理结果 --><t:mutiLang langKey="common.result_of_processing"/>：<span class="blue">{{result}}</span></p>
-            {{#if_more_than_ten content}}
-            <p style="display:black;">
-                <!-- 处理内容 --><t:mutiLang langKey="common.processer_content"/>：{{subcontent content}}
-                <span class="more"><img src="<%=basePath%>/webpage/letv_common/mobile/images/ico_arrow_down.png" width="16" height="16" alt=""/>展开</span>
-            </p>
-            <p style="display:none;">
-                <!-- 处理内容 --><t:mutiLang langKey="common.processer_content"/>：{{content}}
-                <span class="more"><img src="<%=basePath%>/webpage/letv_common/mobile/images/ico_arrow_up.png" width="16" height="16" alt=""/>收起</span>
-            </p>
-            {{else}}
-            <p style="display:black;">
-                <!-- 处理内容 --><t:mutiLang langKey="common.processer_content"/>：{{content}}
-            </p>
-            {{/if_more_than_ten}}
-        </div>
-    </li>
-    {{/if}}
-    {{/each}}
-</script>
 <script src="js/command.js"></script>

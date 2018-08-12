@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:p="http://www.springframework.org/schema/p" xmlns:cache="http://www.springframework.org/schema/cache"
        xmlns="http://www.springframework.org/schema/beans"
@@ -17,7 +18,11 @@
     http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 自动扫描包 ,将带有注解的类 纳入spring容器管理 -->
-    <context:component-scan base-package="com.maybe"></context:component-scan>
+    <context:component-scan base-package="com.maybe">
+    <!--忽略@Controller注解的类-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
 
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

@@ -22,10 +22,19 @@
 
     <!-- 添加注解驱动 -->
     <!--SpringMVC的@ResponseBody使用的默认处理字符串编码为ISO-8859-1-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <!-- 消息转换器 -->
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
-    <!-- 默认扫描的包路径 -->
-    <context:component-scan base-package="com.maybe"/>
+    <!-- 只扫描controller包中的类(其中只有@Controller控制器)，不会重复扫描到@Service或者@Component -->
+    <context:component-scan base-package="com.maybe.controller">
+
+    </context:component-scan>
 
     <!-- 支持返回json(避免IE在ajax请求时，返回json出现下载 ) -->
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
