@@ -6,8 +6,6 @@
 let table;
 let command;
 $(function () {
-    //init
-
     let commandName = getURLParameter("commandName");
     let commandId = getURLParameter("commandId");
     if (commandName) {
@@ -30,9 +28,10 @@ $(function () {
         "processing": false,//刷新的那个对话框
         "serverSide": true,  //设置为服务端分页，会自动将必要参数传到服务器
         "paging": true,//开启分页
+        AutoWidth: false,
         lengthMenu: [ //自定义分页长度
-            [5, 10, 20],
-            ['5 页', '10 页', '20页']
+            [10, 20, 50],
+            ['10 页', '20 页', '50页']
         ],
         ordering: false,
         "ajax": {
@@ -47,7 +46,7 @@ $(function () {
                 }
                 //自定义参数都可以写在这里面
                 let myParams = {
-                    "commandId": "hello"
+                    "commandId": commandId
                 };
                 //附加查询参数
                 if (myParams) {
@@ -68,8 +67,8 @@ $(function () {
         "searching": false,
         "columns": [
             {"data": null}, //因为要加行号，所以要多一列，不然会把第一列覆盖
-            {"data": "description"},
             {"data": "content"},
+            {"data": "description"},
             {"data": null}
         ],
         // dt默认是第一列升序排列 这里第一列为序号列，所以设置为不排序，并把默认的排序列tru面
@@ -83,13 +82,14 @@ $(function () {
             {
                 //下标是4的列
                 "targets": 3,
+                width:"180px",
                 "render": function (a, b, c, d) {
                     var context =
                         {
                             func: [
                                 {
                                     "name": "修改",
-                                    "fn": "edit(\'" + c.id + "\',\'" + c.commandId + "\',\'" + c.description + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
+                                    "fn": "edit(\'" + c.id + "\',\'" + c.description + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
                                     "type": "primary"
                                 },
                                 {"name": "删除", "fn": "del(\'" + c.id + "\')", "type": "danger"},
@@ -154,14 +154,14 @@ $(function () {
          **/
         let addJson = {
             "id": $("#id").val(),
-            "commandId": $("#commandId").val(),
+            "commandId": commandId,
             "description": $("#description").val(),
             "content": $("#content").val(),
             "remarks": $("#remarks").val()
         };
 
         let functionName;
-        if (addJson.id == null) {
+        if (addJson.id == null || addJson.id==="") {
             functionName = "add";
         } else {
             functionName = "edit";
@@ -179,7 +179,6 @@ $(function () {
  */
 function clear() {
     $("#id").val("").attr("disabled", false);
-    $("#commandId").val("");
     $("#description").val("");
     $("#content").val("");
     $("#remarks").val("");
@@ -188,10 +187,9 @@ function clear() {
 /**
  *编辑方法
  **/
-function edit(id, commandId, description, content, remarks) {
+function edit(id, description, content, remarks) {
     $("#myModalLabel").text("修改");
     $("#id").val(id).attr("disabled", true);
-    $("#commandId").val(commandId);
     $("#description").val(description);
     $("#content").val(content);
     $("#remarks").val(remarks);
@@ -203,9 +201,7 @@ function edit(id, commandId, description, content, remarks) {
  **/
 function showAdd() {
     $("#myModalLabel").text("新增");
-    console.log("----------");
-    $("#id").hide();
-    $("#commandId").val(id).attr("disabled", true);
+    $("#id").val(null).hide();
 }
 
 /**
@@ -214,7 +210,7 @@ function showAdd() {
  * @param obj
  */
 function ajaxData(functionName, obj) {
-    let commandId = requestPath + "commandDemo/" + functionName;
+    let url = requestPath + "commandDemo/" + functionName;
     $.ajax({
         url: url,
         data: {
@@ -238,7 +234,13 @@ function ajaxData(functionName, obj) {
  * @param id
  */
 function del(event) {
-    console.log("del函数接收到参数：" + event.data.id);
+    let id;
+    if (event === typeof $.event) {
+        id = event.data.id;
+    } else {
+        id = event;
+    }
+    console.log("del函数接收到参数：" + id);
     if (confirm("将要删除一条记录，你确定要添加么？")) {
         $.ajax({
             url: requestPath + "commandDemo/del",

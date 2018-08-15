@@ -9,6 +9,7 @@
     <!-- 配置文件路径 -->
     <properties url="${mybatis.generator.generatorConfig.properties}"/>
 
+
     <!--数据库驱动包路径 -->
     <!--<classPathEntry location="${jar.path}"/>-->
 

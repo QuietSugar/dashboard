@@ -15,10 +15,11 @@ $(function () {
     table = $('#example').DataTable({
         "processing": false,//刷新的那个对话框
         "serverSide": true,  //设置为服务端分页，会自动将必要参数传到服务器
+        AutoWidth: false,
         "paging": true,//开启分页
         lengthMenu: [ //自定义分页长度
-            [5, 10, 20],
-            ['5 页', '10 页', '20页']
+            [10, 20, 50],
+            ['10 页', '20 页', '50页']
         ],
         ordering: false,
         "ajax": {
@@ -51,11 +52,21 @@ $(function () {
                 return JSON.stringify(returnData);//这几个参数都是datatable需要的，必须要
             }
         },
-        "searching": false,
+        "searching": true,
         "columns": [
-            {"data": null}, //因为要加行号，所以要多一列，不然会把第一列覆盖
+            {
+                "data": null
+            }, //因为要加行号，所以要多一列，不然会把第一列覆盖
             {"data": "name"},
             {"data": "content"},
+            {
+                "data": "type"
+                ,                visible: false
+            },
+            {
+                "data": "parameter"
+                ,                visible: false
+            },
             {"data": null}
         ],
         // dt默认是第一列升序排列 这里第一列为序号列，所以设置为不排序，并把默认的排序列tru面
@@ -68,7 +79,8 @@ $(function () {
             },
             {
                 //下标是4的列
-                "targets": 3,
+                "targets": 5,
+                width:"180px",
                 "render": function (a, b, c, d) {
                     var context =
                         {
@@ -87,7 +99,7 @@ $(function () {
                                 },
                                 {
                                     "name": "详情",
-                                    "url":requestPath + "commandDemo.html?commandId="+c.id,
+                                    "url": requestPath + "commandDemo.html?commandId=" + c.id,
                                     "btn-type": "primary",
                                     "type": "url"
                                 }
@@ -114,7 +126,7 @@ $(function () {
         "t" +
         "<'row'<'col-xs-6'i><'col-xs-6'p>>",
         "initComplete": function () {
-            $("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp')
+            $("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">页面刷新</button>&nbsp')
             //点击“添加”，新增的模态框
                 .append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
             $("#datainit").on("click", initData);
@@ -251,5 +263,5 @@ function detail(id) {
  * @param id
  */
 function initData() {
-    console.log("initData function")
+    console.log("页面刷新，功能尚未实现--")
 }

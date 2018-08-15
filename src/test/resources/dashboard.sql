@@ -39,3 +39,6 @@ CREATE TABLE command_demo
   description   VARCHAR(1024) COMMENT '内容：demo的详细说明',
   remarks   VARCHAR(1024) COMMENT '备注'
 );
+
+-- 命令名称不重复
+ALTER TABLE command ADD UNIQUE (name);

@@ -37,12 +37,6 @@
         <skipTests>true</skipTests>
 
 
-        <!--数据库信息-->
-        <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-        <jdbc.url>jdbc:mysql://192.168.0.252:3306/todo?useUnicode=true&amp;amp;characterEncoding=UTF-8</jdbc.url>
-        <jdbc.username>root</jdbc.username>
-        <jdbc.password>123456</jdbc.password>
-
         <mybatis.version>3.2.2</mybatis.version>
         <mybatis.spring.version>1.2.2</mybatis.spring.version>
         <jackson.version>1.9.13</jackson.version>

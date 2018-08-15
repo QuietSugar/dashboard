@@ -58,9 +58,9 @@ public class CommandDemoController {
 
 
     @RequestMapping("commandDemo/add")
-    public void add(CommandDemo commandDemo) {
+    public int add(CommandDemo commandDemo) {
         commandDemo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        commandDemoService.insert(commandDemo);
+        return commandDemoService.insert(commandDemo);
     }
 
 //    @RequestMapping("commandDemo/info")

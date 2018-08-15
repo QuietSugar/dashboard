@@ -59,9 +59,9 @@ public class CommandController {
 
 
     @RequestMapping("command/add")
-    public void add(Command command) {
+    public int add(Command command) {
         command.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        commandService.insert(command);
+        return commandService.insert(command);
     }
 
     @RequestMapping("command/id/{id}")
