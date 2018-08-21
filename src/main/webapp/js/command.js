@@ -54,18 +54,20 @@ $(function () {
         },
         "searching": true,
         "columns": [
+            //因为要加行号，所以要多一列，不然会把第一列覆盖
             {
-                "data": null
-            }, //因为要加行号，所以要多一列，不然会把第一列覆盖
+                "data": null,
+                "createdCell": createdCell
+            },
             {"data": "name"},
             {"data": "content"},
             {
                 "data": "type"
-                ,                visible: false
+                , visible: false
             },
             {
                 "data": "parameter"
-                ,                visible: false
+                , visible: false
             },
             {"data": null}
         ],
@@ -80,14 +82,20 @@ $(function () {
             {
                 //下标是4的列
                 "targets": 5,
-                width:"180px",
+                width: "180px",
                 "render": function (a, b, c, d) {
-                    var context =
+                    console.log("渲染可操作参数：\n");
+                    console.log(a);
+                    console.log(b);
+                    console.log(c);
+                    console.log(d);
+
+                    let context =
                         {
                             func: [
                                 {
-                                    "name": "修改",
-                                    "fn": "edit(\'" + c.id + "\',\'" + c.url + "\',\'" + c.name + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
+                                    "name": "弹",
+                                    "fn": "show(\'" + d.row + "\')",
                                     "btn-type": "primary",
                                     "type": "button"
                                 },
@@ -126,34 +134,20 @@ $(function () {
         "t" +
         "<'row'<'col-xs-6'i><'col-xs-6'p>>",
         "initComplete": function () {
-            $("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">页面刷新</button>&nbsp')
+            //初始化内容
+            $("#mytool").append('<button id="reload" type="button" class="btn btn-primary btn-sm">页面刷新</button>&nbsp')
             //点击“添加”，新增的模态框
-                .append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
-            $("#datainit").on("click", initData);
+                .append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>')
+                .append('<button type="button" class="btn btn-default btn-sm" onclick="edit()">修改</button>')
+            ;
+
+            $("#reload").click(function () {
+                reload();
+            });
+            checkbox();
         }
 
     });
-
-    //添加序号
-    //不管是排序，还是分页，还是搜索最后都会重画，这里监听draw事件即可
-    table.on('draw.dt', function () {
-        table.column(0, {
-            search: 'applied',
-            order: 'applied'
-        }).nodes().each(function (cell, i) {
-            //i 从0开始，所以这里先加1
-            i = i + 1;
-            //服务器模式下获取分页信息
-            var page = table.page.info();
-            //当前第几页，从0开始
-            var pageno = page.page;
-            //每页数据
-            var length = page.length;
-            //行号等于 页数*每页数据长度+行号
-            var columnIndex = (i + pageno * length);
-            cell.innerHTML = columnIndex;
-        });
-    }).draw();
 
     $("#save").click(function () {
         /**
@@ -168,7 +162,7 @@ $(function () {
         };
 
         let functionName;
-        if (addJson.id == null) {
+        if (addJson.id == null || addJson.id === "") {
             functionName = "add";
         } else {
             functionName = "edit";
@@ -191,13 +185,37 @@ function clear() {
 /**
  *编辑方法
  **/
-function edit(id, url, name, content, remarks) {
-    $("#myModalLabel").text("修改");
-    $("#id").val(id).attr("disabled", true);
-    $("#url").val(url);
-    $("#name").val(name);
-    $("#content").val(content);
-    $("#remarks").val(remarks);
+function edit() {
+    //获取当前勾选的那一行
+    if (table.rows(".selected").data().length == 1) {
+        let data = table.row(".selected").data();
+
+        $("#myModalLabel").text("修改");
+        $("#id").val(data.id).attr("disabled", true);
+        $("#url").val(data.url);
+        $("#name").val(data.name);
+        $("#content").val(data.content);
+        $("#remarks").val(data.remarks);
+        $("#myModal").modal("show");
+    } else {
+        alert("请选择一条数据！");
+    }
+}
+
+/**
+ *
+ * 显示当前行的具体内容
+ */
+function show(rowIndex) {
+    //获取当前勾选的那一行
+    let data = table.row(rowIndex).data();
+
+    $("#myModalLabel").text("显示");
+    $("#id").val(data.id).attr("disabled", true);
+    $("#url").val(data.url).attr("disabled", true);
+    $("#name").val(data.name).attr("disabled", true);
+    $("#content").val(data.content).attr("disabled", true);
+    $("#remarks").val(data.remarks).attr("disabled", true);
     $("#myModal").modal("show");
 }
 
@@ -263,5 +281,27 @@ function detail(id) {
  * @param id
  */
 function initData() {
-    console.log("页面刷新，功能尚未实现--")
+}
+
+function createdCell(cell, cellData, rowData, rowIndex, colIndex) {
+    //填充一个勾选框
+    $(cell).html("<input type='checkbox' name='checkList' value='" + cellData + "'>");
+}
+
+//刷新页面
+//重新加载数据
+function reload() {
+    console.log("页面刷新，--")
+    table.ajax.reload();
+}
+
+function checkbox() {
+    $('#example tbody').off("click", "tr").on("click", "tr", function () {
+        $(this).toggleClass('selected');
+        if ($(this).hasClass("selected")) {
+            $(this).find("input").prop("checked", true);
+        } else {
+            $(this).find("input").prop("checked", false);
+        }
+    });
 }
