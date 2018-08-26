@@ -2,7 +2,15 @@
 
 随时记录任务，比如记录URL，笔记
 
-
+## 如何部署?
+- 下载源码
+```shell
+git clone https://github.com/QuietSugar/dashboard.git
+```
+- 运行脚本
+```shell
+sh dashboard/build.sh
+```
 
 [参考:datatabes](https://github.com/ssy341/datatabes_cn_example_curd_java)
 
