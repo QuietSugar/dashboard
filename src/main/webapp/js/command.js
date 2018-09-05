@@ -84,11 +84,11 @@ $(function () {
                 "targets": 5,
                 width: "180px",
                 "render": function (a, b, c, d) {
-                    console.log("渲染可操作参数：\n");
-                    console.log(a);
-                    console.log(b);
-                    console.log(c);
-                    console.log(d);
+                    // console.log("渲染可操作参数：\n");
+                    // console.log(a);
+                    // console.log(b);
+                    // console.log(c);
+                    // console.log(d);
 
                     let context =
                         {
@@ -99,12 +99,12 @@ $(function () {
                                     "btn-type": "primary",
                                     "type": "button"
                                 },
-                                {
-                                    "name": "删除",
-                                    "fn": "del(\'" + c.id + "\')",
-                                    "btn-type": "danger",
-                                    "type": "button"
-                                },
+                                // {
+                                //     "name": "删除",
+                                //     "fn": "del(\'" + c.id + "\')",
+                                //     "btn-type": "danger",
+                                //     "type": "button"
+                                // },
                                 {
                                     "name": "详情",
                                     "url": requestPath + "commandDemo.html?commandId=" + c.id,

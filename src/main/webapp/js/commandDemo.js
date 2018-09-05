@@ -6,14 +6,10 @@
 let table;
 let command;
 $(function () {
-    let commandName = getURLParameter("commandName");
+
     let commandId = getURLParameter("commandId");
-    if (commandName) {
-        console.log("commandName is:" + commandName);
-        initDataByName(commandName);
-    } else if (commandId) {
+    if (commandId) {
         console.log("commandId is:" + commandId);
-        initDataById(commandId);
     } else {
         console.log("命令不存在!");
         return;
@@ -67,8 +63,8 @@ $(function () {
         "searching": false,
         "columns": [
             {"data": null}, //因为要加行号，所以要多一列，不然会把第一列覆盖
-            {"data": "content"},
             {"data": "description"},
+            {"data": "content"},
             {"data": null}
         ],
         // dt默认是第一列升序排列 这里第一列为序号列，所以设置为不排序，并把默认的排序列tru面
@@ -82,18 +78,30 @@ $(function () {
             {
                 //下标是4的列
                 "targets": 3,
-                width:"180px",
+                width: "180px",
                 "render": function (a, b, c, d) {
                     var context =
                         {
                             func: [
                                 {
+                                    "id": "修改",
                                     "name": "修改",
                                     "fn": "edit(\'" + c.id + "\',\'" + c.description + "\',\'" + c.content + "\',\'" + c.remarks + "\')",
                                     "type": "primary"
                                 },
-                                {"name": "删除", "fn": "del(\'" + c.id + "\')", "type": "danger"},
-                                {"name": "详情", "fn": "detail(\'" + c.id + "\')", "type": "primary"}
+                                {"name": "删除", "id": "删除", "fn": "del(\'" + c.id + "\')", "type": "danger"},
+                                {
+                                    "id": "详情",
+                                    "name": "详情",
+                                    "fn": "show(\'" + d.row + "\')",
+                                    "type": "primary"
+                                },
+                                {
+                                    "id": "copy",
+                                    "name": "复制",
+                                    "fn": "copy(\'" + d.row + "\')",
+                                    "type": "primary"
+                                }
                             ]
                         };
                     return template(context);
@@ -123,6 +131,7 @@ $(function () {
 
             $("#delete").on("click", {id: "id"}, del);
             $("#showAdd").on("click", showAdd);
+
         }
 
     });
@@ -161,7 +170,7 @@ $(function () {
         };
 
         let functionName;
-        if (addJson.id == null || addJson.id==="") {
+        if (addJson.id == null || addJson.id === "") {
             functionName = "add";
         } else {
             functionName = "edit";
@@ -254,47 +263,33 @@ function del(event) {
 }
 
 /**
- * 详情查询
- * @param id
+ *
+ * 显示当前行的具体内容
  */
-function detail(id) {
-    $.ajax({
-        url: requestPath + "commandDemo/info",
-        data: {
-            "id": id
-        }, success: function (data) {
-            table.ajax.reload();
-        }
-    });
+function show(rowIndex) {
+    //获取当前勾选的那一行
+    let data = table.row(rowIndex).data();
+    $("#myModalLabel").text("详情");
+    $("#id").val(data.id).attr("disabled", true);
+    $("#clear").hide();
+    $("#content").val(data.content).attr("disabled", true);
+    $("#description").val(data.description).attr("disabled", true);
+    $("#remarks").val(data.remarks).attr("disabled", true);
+    $("#myModal").modal("show");
 }
 
 /**
- * init : get current command info by name
+ *
+ * 复制到剪贴板
  */
-function initDataByName(commandName) {
-    console.log("init .....");
-    $.ajax({
-        url: requestPath + "command/name/" + commandName,
-        async: false,
-        success: function (data) {
-            command = data;
-            console.log("current command is : \n" + command);
+function copy(rowIndex) {
+
+    let data = table.row(rowIndex).data();
+    new ClipboardJS('#copy', {
+        text: function (trigger) {
+            console.log(trigger);
+            return data.content;
         }
     });
-}
 
-/**
- * init : get current command info by id
- */
-function initDataById(commandId) {
-    console.log("init .....");
-    $.ajax({
-        url: requestPath + "command/id/" + commandId,
-        async: false,
-        success: function (data) {
-            command = data;
-            console.log("current command is : \n" + command);
-        }
-    });
 }
-
