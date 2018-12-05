@@ -42,3 +42,15 @@ CREATE TABLE command_demo
 
 -- 命令名称不重复
 ALTER TABLE command ADD UNIQUE (name);
+
+-- DROP TABLE IF EXISTS hs_user;
+CREATE TABLE user (
+	id VARCHAR (32) PRIMARY KEY NOT NULL  COMMENT '唯一序号',
+	name VARCHAR (32) NOT NULL COMMENT  '用户名'  ,
+	sex VARCHAR (8) COMMENT   '性别',
+	age NUMERIC (8) COMMENT   '年龄',
+	amount NUMERIC (18, 4) COMMENT   '账户余额',
+	desc1 VARCHAR(128) COMMENT '描述',
+	lasttime VARCHAR (64) COMMENT   '时间',
+	remarks VARCHAR (1024) COMMENT   '备注'
+)   COMMENT   '用户表';
