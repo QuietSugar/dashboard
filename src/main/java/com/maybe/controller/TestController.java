@@ -1,6 +1,7 @@
 package com.maybe.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,8 +16,9 @@ import java.util.Map;
  * @author Created by sugar on 2018/7/3
  */
 @RestController
+@RequestMapping(value = "test", method = {RequestMethod.POST})
 public class TestController {
-    @RequestMapping("test/list")
+    @RequestMapping("/list")
     public Map list(
             @RequestParam(value = "start", defaultValue = "0") Integer start,
             @RequestParam(value = "length", defaultValue = "10") Integer length,

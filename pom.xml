@@ -22,7 +22,7 @@
         <encoding>UTF-8</encoding>
 
 
-        <spring.version>4.3.17.RELEASE</spring.version>
+        <spring.version>4.3.18.RELEASE</spring.version>
 
         <!-- plugin setting -->
         <mybatis.generator.generatorConfig.xml>${basedir}/src/test/resources/generatorConfig.xml
@@ -39,23 +39,32 @@
 
         <mybatis.version>3.2.2</mybatis.version>
         <mybatis.spring.version>1.2.2</mybatis.spring.version>
-        <jackson.version>1.9.13</jackson.version>
+        <jackson.version>2.9.8</jackson.version>
         <mysql.connector.version>5.1.30</mysql.connector.version>
         <ehcache.version>2.5.0</ehcache.version>
         <druid.version>1.0.5</druid.version>
         <aspectj.version>1.6.12</aspectj.version>
         <cglib.version>3.1</cglib.version>
-
-        <jackson.version>1.9.13</jackson.version>
         <slf4j.version>1.6.6</slf4j.version>
         <log4j.version>1.2.12</log4j.version>
     </properties>
+
     <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>http://maven.aliyun.com/nexus/content/repositories/central</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>maybe-mvn-repo</id>
             <url>https://raw.githubusercontent.com/QuietSugar/maven-repo/master/repository</url>
         </repository>
     </repositories>
+
     <build>
         <finalName>dashboard</finalName>
         <plugins>
@@ -81,6 +90,7 @@
             </plugin>
             <!-- Mybatis generator代码生成插件 配置 -->
             <plugin>
+
                 <dependencies>
                     <dependency>
                         <groupId>mysql</groupId>
@@ -254,12 +264,20 @@
             <version>${cglib.version}</version>
         </dependency>
 
-        <!-- jackson -->
+        <!-- jackson  相当于是1.x版本，不再使用 使用jackson -->
+        <!--<dependency>-->
+        <!--<groupId>org.codehaus.jackson</groupId>-->
+        <!--<artifactId>jackson-mapper-asl</artifactId>-->
+        <!--<version>${jackson.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- jackson 2.版本 -->
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
 
         <!-- log start -->
         <dependency>
@@ -279,13 +297,29 @@
         </dependency>
         <!-- log end -->
 
-
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>4.1.4</version>
         </dependency>
 
+        <!--添加  swagger   -->
+        <!--<dependency>-->
+            <!--<groupId>com.mangofactory</groupId>-->
+            <!--<artifactId>swagger-springmvc</artifactId>-->
+            <!--<version>1.0.2</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <!-- springfox-swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
 
     </dependencies>
 

@@ -37,7 +37,7 @@
     </context:component-scan>
 
     <!-- 支持返回json(避免IE在ajax请求时，返回json出现下载 ) -->
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
                 <ref bean="mappingJacksonHttpMessageConverter"/>
@@ -45,7 +45,7 @@
         </property>
     </bean>
     <bean id="mappingJacksonHttpMessageConverter"
-          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
             <list>
                 <value>text/plain;charset=UTF-8</value>
@@ -54,4 +54,8 @@
         </property>
     </bean>
     <!-- 支持返回json -->
+
+    <!--Swagger-->
+    <bean class="com.maybe.config.SwaggerConfig" />
+    <!--<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />-->
 </beans>

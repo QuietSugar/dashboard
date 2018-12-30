@@ -6,6 +6,7 @@ import com.maybe.service.CommandDemoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,13 +22,14 @@ import java.util.UUID;
  * @author Created by sugar on 2018/7/26
  */
 @RestController
+@RequestMapping(value = "commandDemo", method = {RequestMethod.POST})
 public class CommandDemoController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandDemoController.class);
 
     @Resource
     CommandDemoService commandDemoService;
 
-    @RequestMapping("commandDemo/list")
+    @RequestMapping("/list")
     public Map list(
             //偏移量
             @RequestParam(value = "start", defaultValue = "0") Integer offset,
@@ -45,19 +47,19 @@ public class CommandDemoController {
         return info;
     }
 
-    @RequestMapping("commandDemo/edit")
+    @RequestMapping("/edit")
     public String edit(CommandDemo commandDemo) throws Exception {
         return String.valueOf(commandDemoService.update(commandDemo));
     }
 
-    @RequestMapping("commandDemo/del")
+    @RequestMapping("/del")
     public String del(@RequestParam(value = "id") String id) throws Exception {
 
         return String.valueOf(commandDemoService.delete(id));
     }
 
 
-    @RequestMapping("commandDemo/add")
+    @RequestMapping("/add")
     public int add(CommandDemo commandDemo) {
         commandDemo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         return commandDemoService.insert(commandDemo);

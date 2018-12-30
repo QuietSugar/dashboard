@@ -7,6 +7,7 @@ import com.maybe.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,13 +23,14 @@ import java.util.UUID;
  * @author Created by sugar on 2018/7/3
  */
 @RestController
+@RequestMapping(value = "task", method = {RequestMethod.POST})
 public class TaskController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class);
 
     @Resource
     TaskService taskService;
 
-    @RequestMapping("task/list")
+    @RequestMapping("/list")
     public Map list(
             //偏移量
             @RequestParam(value = "start", defaultValue = "0") Integer offset,
@@ -52,12 +54,12 @@ public class TaskController {
         return info;
     }
 
-    @RequestMapping("task/edit")
+    @RequestMapping("/edit")
     public String edit(Task task) throws Exception {
         return String.valueOf(taskService.update(task));
     }
 
-    @RequestMapping("task/del")
+    @RequestMapping("/del")
     public String del(@RequestParam(value = "id") String id) throws Exception {
 
         return String.valueOf(taskService.delete(id));
@@ -69,12 +71,12 @@ public class TaskController {
      * @param id id
      * @throws Exception
      */
-    @RequestMapping("task/complete")
+    @RequestMapping("/complete")
     public void complete(@RequestParam(value = "id") String id) throws Exception {
         taskService.complete(id);
     }
 
-    @RequestMapping("task/add")
+    @RequestMapping("/add")
     public void add(Task task) {
         task.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         task.setStatus(TaskStatus.INIT.getStatus());
@@ -88,7 +90,7 @@ public class TaskController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("task/init")
+    @RequestMapping("/init")
     public void init(@RequestParam(defaultValue = "0") Integer num) throws Exception {
         for (int i = 0; i < num; i++) {
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
