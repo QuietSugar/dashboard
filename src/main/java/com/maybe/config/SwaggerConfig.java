@@ -12,8 +12,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * SwaggerConfig
+ * 如果加了 @Configuration 注解，就会产生两个上下文
+ * 一个是spring的，一个是springMvc的
  */
-@Configuration
 @EnableSwagger2
 public class SwaggerConfig {
 

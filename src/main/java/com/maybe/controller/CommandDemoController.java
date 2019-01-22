@@ -3,6 +3,7 @@ package com.maybe.controller;
 import com.github.pagehelper.Page;
 import com.maybe.pojo.CommandDemo;
 import com.maybe.service.CommandDemoService;
+import com.maybe.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +62,7 @@ public class CommandDemoController {
 
     @RequestMapping("/add")
     public int add(CommandDemo commandDemo) {
-        commandDemo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        commandDemo.setId(Util.getUuid());
         return commandDemoService.insert(commandDemo);
     }
 

@@ -1,6 +1,7 @@
 # dashboard
 
 随时记录任务，比如记录URL，笔记
+[swagger-API](http://localhost:8080/dashboard/swagger-ui.html)
 
 ## 如何部署?
 - 下载源码

@@ -57,5 +57,4 @@
 
     <!--Swagger-->
     <bean class="com.maybe.config.SwaggerConfig" />
-    <!--<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />-->
 </beans>

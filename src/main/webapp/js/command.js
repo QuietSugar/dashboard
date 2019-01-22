@@ -22,6 +22,7 @@ $(function () {
             ['10 页', '20 页', '50页']
         ],
         ordering: false,
+        bLengthChange: false,//不显示每页多少条
         "ajax": {
             "url": requestPath + "command/list",
             "type": "POST",

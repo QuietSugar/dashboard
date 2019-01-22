@@ -36,7 +36,7 @@
 
     <div>
 
-        <template v-for="command in commandList">
+        <template v-for="command in commands">
             <div class="col-md-1 ">
                 <span>{{command.id}}</span><br>
                 <span>{{command.name}}</span><br>
@@ -146,7 +146,7 @@
         el: '#app',
         data: {
             commandDescription: null,
-            commandList: [],
+            commands: [],
             commandDemoList: [],
             commandDemoNumber: 0
         },
@@ -161,7 +161,7 @@
             init: function () {
 
                 let _this = this;
-                _this.commandList = [{
+                _this.commands = [{
                     id: "id1",
                     name: "name1",
                     content: "content1",

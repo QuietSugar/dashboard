@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.maybe.pojo.Task;
 import com.maybe.pojo.enumeration.TaskStatus;
 import com.maybe.service.TaskService;
+import com.maybe.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,7 +79,7 @@ public class TaskController {
 
     @RequestMapping("/add")
     public void add(Task task) {
-        task.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        task.setId(Util.getUuid());
         task.setStatus(TaskStatus.INIT.getStatus());
         taskService.insert(task);
     }
@@ -93,7 +94,7 @@ public class TaskController {
     @RequestMapping("/init")
     public void init(@RequestParam(defaultValue = "0") Integer num) throws Exception {
         for (int i = 0; i < num; i++) {
-            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            String uuid = Util.getUuid();
             Task task = new Task();
             task.setId(uuid);
             task.setTitle("标题" + uuid);
