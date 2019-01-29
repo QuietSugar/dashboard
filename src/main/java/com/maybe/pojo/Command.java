@@ -1,14 +1,18 @@
 package com.maybe.pojo;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Command {
     /**
      * 唯一ID
      */
+    @ApiModelProperty(value="ID",hidden=true)
     private String id;
 
     /**
-     * 标题
+     * 名字
      */
+    @ApiModelProperty(value="命令名",example="docker")
     private String name;
 
     /**

@@ -26,7 +26,7 @@ import java.util.UUID;
  * @author Created by sugar on 2018/7/26
  */
 @RestController
-@RequestMapping(value = "command", method = {RequestMethod.POST, RequestMethod.GET})
+@RequestMapping(value = "command", method = {RequestMethod.POST })
 @Api(value = "命令controller", tags = {"命令操作接口"})
 public class CommandController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandController.class);
@@ -70,6 +70,7 @@ public class CommandController {
 
 
     @RequestMapping("/add")
+    @ApiOperation(value = "增加", response = Integer.class, notes = "命令列表展示-笔记")
     public int add(Command command) {
         command.setId(Util.getUuid());
         return commandService.insert(command);

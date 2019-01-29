@@ -57,4 +57,8 @@
 
     <!--Swagger-->
     <bean class="com.maybe.config.SwaggerConfig" />
+
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
+    </mvc:cors>
 </beans>

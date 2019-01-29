@@ -1,23 +1,18 @@
 package com.maybe.pojo;
 
-public class CommandDemo {
+public class Statement {
     /**
      * 唯一ID
      */
     private String id;
 
     /**
-     * 命令表的ID
-     */
-    private String commandId;
-
-    /**
-     * demo
+     * 内容
      */
     private String content;
 
     /**
-     * 内容：demo的详细说明
+     * 的详细说明
      */
     private String description;
 
@@ -25,6 +20,16 @@ public class CommandDemo {
      * 备注
      */
     private String remarks;
+
+    /**
+     * 
+     */
+    private String commandId;
+
+    /**
+     * 热度
+     */
+    private Integer hot;
 
     /**
      * 唯一ID
@@ -43,48 +48,32 @@ public class CommandDemo {
     }
 
     /**
-     * 命令表的ID
-     * @return command_id 命令表的ID
-     */
-    public String getCommandId() {
-        return commandId;
-    }
-
-    /**
-     * 命令表的ID
-     * @param commandId 命令表的ID
-     */
-    public void setCommandId(String commandId) {
-        this.commandId = commandId == null ? null : commandId.trim();
-    }
-
-    /**
-     * demo
-     * @return content demo
+     * 内容
+     * @return content 内容
      */
     public String getContent() {
         return content;
     }
 
     /**
-     * demo
-     * @param content demo
+     * 内容
+     * @param content 内容
      */
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
     }
 
     /**
-     * 内容：demo的详细说明
-     * @return description 内容：demo的详细说明
+     * 的详细说明
+     * @return description 的详细说明
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * 内容：demo的详细说明
-     * @param description 内容：demo的详细说明
+     * 的详细说明
+     * @param description 的详细说明
      */
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
@@ -104,5 +93,37 @@ public class CommandDemo {
      */
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    /**
+     * 
+     * @return command_id 
+     */
+    public String getCommandId() {
+        return commandId;
+    }
+
+    /**
+     * 
+     * @param commandId 
+     */
+    public void setCommandId(String commandId) {
+        this.commandId = commandId == null ? null : commandId.trim();
+    }
+
+    /**
+     * 热度
+     * @return hot 热度
+     */
+    public Integer getHot() {
+        return hot;
+    }
+
+    /**
+     * 热度
+     * @param hot 热度
+     */
+    public void setHot(Integer hot) {
+        this.hot = hot;
     }
 }

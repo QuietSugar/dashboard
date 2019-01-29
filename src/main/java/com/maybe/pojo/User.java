@@ -1,74 +1,150 @@
 package com.maybe.pojo;
 
-/**
- * Maybe has infinite possibilities
- *
- * @author Created by sugar on 2018/7/3
- */
 public class User {
+    /**
+     * 唯一序号
+     */
+    private String id;
 
-    public String name;
-    public String position;
-    public String salary;
-    public String start_date;
-    public String office;
-    public String extn;
+    /**
+     * 名字
+     */
+    private String name;
 
-    public User(String name, String position, String salary, String start_date, String office, String extn) {
-        this.name = name;
-        this.position = position;
-        this.salary = salary;
-        this.start_date = start_date;
-        this.office = office;
-        this.extn = extn;
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 角色
+     */
+    private String role;
+
+    /**
+     * 介绍
+     */
+    private String introduction;
+
+    /**
+     * avatar
+     */
+    private String avatar;
+
+    /**
+     * 备注
+     */
+    private String remarks;
+
+    /**
+     * 唯一序号
+     * @return id 唯一序号
+     */
+    public String getId() {
+        return id;
     }
 
-    public String getName() {
+    /**
+     * 唯一序号
+     * @param id 唯一序号
+     */
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
 
+    /**
+     * 名字
+     * @return name 名字
+     */
+    public String getName() {
         return name;
     }
 
+    /**
+     * 名字
+     * @param name 名字
+     */
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getPosition() {
-        return position;
+    /**
+     * 密码
+     * @return password 密码
+     */
+    public String getPassword() {
+        return password;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    /**
+     * 密码
+     * @param password 密码
+     */
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
-    public String getSalary() {
-        return salary;
+    /**
+     * 角色
+     * @return role 角色
+     */
+    public String getRole() {
+        return role;
     }
 
-    public void setSalary(String salary) {
-        this.salary = salary;
+    /**
+     * 角色
+     * @param role 角色
+     */
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
     }
 
-    public String getStart_date() {
-        return start_date;
+    /**
+     * 介绍
+     * @return introduction 介绍
+     */
+    public String getIntroduction() {
+        return introduction;
     }
 
-    public void setStart_date(String start_date) {
-        this.start_date = start_date;
+    /**
+     * 介绍
+     * @param introduction 介绍
+     */
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction == null ? null : introduction.trim();
     }
 
-    public String getOffice() {
-        return office;
+    /**
+     * avatar
+     * @return avatar avatar
+     */
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setOffice(String office) {
-        this.office = office;
+    /**
+     * avatar
+     * @param avatar avatar
+     */
+    public void setAvatar(String avatar) {
+        this.avatar = avatar == null ? null : avatar.trim();
     }
 
-    public String getExtn() {
-        return extn;
+    /**
+     * 备注
+     * @return remarks 备注
+     */
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setExtn(String extn) {
-        this.extn = extn;
+    /**
+     * 备注
+     * @param remarks 备注
+     */
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
     }
 }

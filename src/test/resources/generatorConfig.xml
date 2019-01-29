@@ -43,7 +43,7 @@
         </javaClientGenerator>
 
         <!--对应数据库表名 -->
-        <table tableName="command_demo">
+        <table tableName="statement">
 
         </table>
     </context>

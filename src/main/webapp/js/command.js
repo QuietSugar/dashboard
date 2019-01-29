@@ -108,7 +108,7 @@ $(function () {
                                 // },
                                 {
                                     "name": "详情",
-                                    "url": requestPath + "commandDemo.html?commandId=" + c.id,
+                                    "url": requestPath + "statement.html?commandId=" + c.id,
                                     "btn-type": "primary",
                                     "type": "url"
                                 }

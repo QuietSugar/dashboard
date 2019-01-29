@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>测试页面</title>
+    <style type="text/css">
+
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <span>针对SpringMVC 测试各种提交方式</span>
+    <span>全部都是以 "application/json" 格式返回 ，区别在于对象和字符串</span>
+</div>
+
+<button onclick="showData()">显示请求的原始数据</button>
+
+<div>---------------------------</div>
+<table id="testTable" border="1">
+    <tr>
+        <th>提交类型</th>
+        <th>提交数据</th>
+        <th>处理方式</th>
+        <th>操作</th>
+    </tr>
+
+</table>
+
+
+<div>---------------------------</div>
+
+<div>
+    提交一个文件
+    multipart/form-data
+    <form action="fileServlet" id="form1" name="form1" encType="multipart/form-data" method="post">
+        <input type="file" id="file" name="file">
+        <input type="submit" value="上传文件">
+    </form>
+</div>
+<div>---------------------------</div>
+<div>
+    提交一个复杂对象
+    服务端用json接收
+    <div action="complexObject">
+        <input type="button" onclick="complexObject()" value="commit">
+    </div>
+</div>
+<div>---------------------------</div>
+<div id="result">result</div>
+
+<script type="text/javascript">
+    const rootUrl = "/dashboard/";
+    const submitData = {name: "张五四", age: 33,};
+    //提交的类型
+    const contentTypeList = {
+        default: "application/x-www-form-urlencoded",
+        json: "application/json",
+        text: "text/plain"
+    };
+
+    const submitDataList = {
+        jsonObject: {
+            name: "json对象",
+            value: submitData
+        },
+        jsonString: {
+            name: "json字符串",
+            value: JSON.stringify(submitData)
+        }
+    };
+    const request = {
+        nativeMode: {
+            name: "原生HttpServletRequest方式解析",
+            url: rootUrl + "common"
+        },
+
+        springMode: {
+            name: "SpringMVC 的方式获取参数",
+            url: rootUrl + "spring/test"
+        }
+    };
+
+    // 初始化
+    const upTable = [{
+        url: request.springMode.url,
+        contentDescription: submitDataList.jsonObject.name,
+        data: submitDataList.jsonObject.value,
+        contentType: contentTypeList.default,
+        requestType: request.springMode.name,
+        receiveDescription: "服务端接收正常",
+    }, {
+        url: request.springMode.url,
+        contentDescription: submitDataList.jsonString.name,
+        data: submitDataList.jsonString.value,
+        contentType: contentTypeList.default,
+        requestType: request.springMode.name,
+        receiveDescription: "整个json字符串会变成key（参数）",
+    }, {
+        url: request.springMode.url,
+        contentDescription: submitDataList.jsonObject.name,
+        data: submitData,
+        contentType: contentTypeList.json,
+        requestType: request.springMode.name,
+        receiveDescription: "获取不到提交的信息",
+    }, {
+        url: request.springMode.url,
+        contentDescription: submitDataList.jsonString.name,
+        data: submitDataList.jsonString.value,
+        contentType: contentTypeList.json,
+        requestType: request.springMode.name,
+        receiveDescription: "接收方式",
+    }];
+
+    //初始化显示的表格
+    initTable(upTable);
+
+    function commit(i) {
+        let element = upTable[i];
+        $.ajax({
+                type: "POST",
+                url: element.url,
+                contentType: element.contentType + ";charset=utf-8",
+                data: element.data,
+                success: function (result) {
+                    console.log(result);
+                    let string = JSON.stringify(result, null, 2);
+                    showResult(element.receiveDescription, string);
+
+                }
+            }
+        )
+    }
+
+    function complexObject() {
+        const submitData = {
+            name: "张五四",
+            age: 33,
+            son: {name: "朱重八", age: 10},
+            role: ["admin", "user"]
+        };
+        $.ajax({
+                type: "POST",
+                url: rootUrl + "complexObject",
+                contentType: contentTypeList.json + ";charset=utf-8",
+                data: JSON.stringify(submitData),
+                success: function (result) {
+                    let string = JSON.stringify(result, null, 2);
+
+                    showResult("返回信息：", string);
+                }
+            }
+        )
+
+
+    }
+
+
+    //初始化表格
+    function initTable(upTable) {
+        for (let i = 0; i < upTable.length; i++) {
+            //添加行
+            let element = upTable[i];
+            $("#testTable").append(createNewRowStr(i, element.contentType, element.contentDescription, element.requestType));
+        }
+    }
+
+    //创建表格一行
+    function createNewRowStr(index, contentType, contentDescription, requestType) {
+        let op = "<input type=\"button\" onclick=\"commit(" + index + ")\" value=\"commit\">";
+        return "<tr><td>" + contentType + "</td><td>" + contentDescription + "</td><td>" + requestType + "</td><td>" + op + "</td></tr>"
+    }
+
+    function showData() {
+        showResult(JSON.stringify(submitData));
+    }
+
+    function showResult(title, data) {
+        $("#result").html("<div>" + title + "</div><div><pre><code>" + data + "</code></pre></div>")
+    }
+</script>
+</body>
+
+</html>

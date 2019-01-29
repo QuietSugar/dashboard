@@ -31,7 +31,7 @@ $(function () {
         ],
         ordering: false,
         "ajax": {
-            "url": requestPath + "commandDemo/list",
+            "url": requestPath + "statement/list",
             "type": "POST",
             "data": function (d) {
                 //删除多余请求参数
@@ -219,7 +219,7 @@ function showAdd() {
  * @param obj
  */
 function ajaxData(functionName, obj) {
-    let url = requestPath + "commandDemo/" + functionName;
+    let url = requestPath + "statement/" + functionName;
     $.ajax({
         url: url,
         data: {
@@ -252,7 +252,7 @@ function del(event) {
     console.log("del函数接收到参数：" + id);
     if (confirm("将要删除一条记录，你确定要添加么？")) {
         $.ajax({
-            url: requestPath + "commandDemo/del",
+            url: requestPath + "statement/del",
             data: {
                 "id": id
             }, success: function (data) {
