@@ -7,18 +7,15 @@
 <!-- 配置 tableName,使用 Run As Maven build 生成 dao model 层 -->
 <generatorConfiguration>
     <!-- 配置文件路径 -->
-    <properties url="${mybatis.generator.generatorConfig.properties}"/>
-
+    <properties resource="generatorConfig.properties"/>
 
     <!--数据库驱动包路径 -->
     <!--<classPathEntry location="${jar.path}"/>-->
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
-        <!--关闭注释 -->
+        <!--自定义注释生成器-->
         <commentGenerator type="com.maybe.plugin.mybatis.SugarCommentGenerator">
             <property name="suppressAllComments" value="false"/>
-            <!--不使用时间戳  -->
-            <property name="suppressDate" value="false"/>
         </commentGenerator>
 
         <!--数据库连接信息 -->
@@ -26,10 +23,12 @@
                         password="${jdbc.password}">
         </jdbcConnection>
 
-        <!--生成的model 包路径 -->
+        <!--生成的model 包路径 Dao生成器-->
         <javaModelGenerator targetPackage="${model.package}" targetProject="${target.project}">
             <property name="enableSubPackages" value="ture"/>
             <property name="trimStrings" value="true"/>
+            <!--Model接口的父类-->
+            <!--<property name="rootClass" value="com.maybe..."/>-->
         </javaModelGenerator>
 
         <!--生成xml mapper文件 路径 -->
@@ -39,11 +38,13 @@
 
         <!-- 生成的Dao接口 的包路径 -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="${dao.package}" targetProject="${target.project}">
+            <!--dao接口的父类-->
+            <property name="rootInterface" value="com.maybe.generic.GenericDao"/>
             <property name="enableSubPackages" value="ture"/>
         </javaClientGenerator>
 
         <!--对应数据库表名 -->
-        <table tableName="statement">
+        <table tableName="${database.name}">
 
         </table>
     </context>

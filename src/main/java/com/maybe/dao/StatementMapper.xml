@@ -151,7 +151,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.maybe.pojo.StatementExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.maybe.pojo.StatementExample" resultType="java.lang.Long">
     select count(*) from statement
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
