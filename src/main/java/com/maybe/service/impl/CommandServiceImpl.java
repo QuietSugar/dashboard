@@ -4,7 +4,7 @@ package com.maybe.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.maybe.dao.CommandMapper;
 import com.maybe.generic.GenericDao;
-import com.maybe.generic.GenericServiceImpl;
+import com.maybe.generic.AbstractGenericServiceImpl;
 import com.maybe.pojo.Command;
 import com.maybe.pojo.CommandExample;
 import com.maybe.service.CommandService;
@@ -12,38 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 用户Service实现类
  */
 @Service
-public class CommandServiceImpl extends GenericServiceImpl<Command, String> implements CommandService {
+public class CommandServiceImpl extends AbstractGenericServiceImpl<Command, String> implements CommandService {
 
     @Resource
     private CommandMapper commandMapper;
-
-    @Override
-    public int insert(Command model) {
-        return commandMapper.insertSelective(model);
-    }
-
-    @Override
-    public int update(Command model) {
-        return commandMapper.updateByPrimaryKeySelective(model);
-    }
-
-    @Override
-    public int delete(String id) {
-        return commandMapper.deleteByPrimaryKey(id);
-    }
-
-
-    @Override
-    public Command selectById(String id) {
-        return commandMapper.selectByPrimaryKey(id);
-    }
 
     @Override
     public GenericDao<Command, String> getDao() {
@@ -60,7 +38,6 @@ public class CommandServiceImpl extends GenericServiceImpl<Command, String> impl
 
     @Override
     public Integer count() {
-
         CommandExample example = new CommandExample();
         example.createCriteria();
         return commandMapper.countByExample(example);

@@ -1,7 +1,6 @@
 package com.maybe.auto;
 
 import com.maybe.auto.util.GeneratorUtil;
-import org.junit.Test;
 
 /**
  * Maybe has infinite possibilities
@@ -13,8 +12,7 @@ public class Main {
     /**
      * 开始生成
      */
-    @Test
-    public void run() throws Exception {
+    public static void main(String[] args) throws Exception {
         GeneratorUtil.runMybatisGenerator();
     }
 }

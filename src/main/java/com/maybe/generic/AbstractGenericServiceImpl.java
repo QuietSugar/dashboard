@@ -3,10 +3,13 @@ package com.maybe.generic;
 import java.util.List;
 
 /**
+ * Maybe has infinite possibilities
  * GenericService的实现类, 其他的自定义 ServiceImpl, 继承自它,可以获得常用的增删查改操作,
- * 未实现的方法有 子类各自实现
+ * 未实现的方法需要子类各自实现
+ *
+ * @author Created by HuoXu <2542610526@qq.com> on 2019/2/1
  */
-public abstract class GenericServiceImpl<Model, PK> implements GenericService<Model, PK> {
+public abstract class AbstractGenericServiceImpl<Model, PK> implements GenericService<Model, PK> {
 
     /**
      * 定义成抽象方法,由子类实现,完成dao的注入
@@ -20,6 +23,7 @@ public abstract class GenericServiceImpl<Model, PK> implements GenericService<Mo
      *
      * @param model 对象
      */
+    @Override
     public int insert(Model model) {
         return getDao().insertSelective(model);
     }
@@ -29,6 +33,7 @@ public abstract class GenericServiceImpl<Model, PK> implements GenericService<Mo
      *
      * @param model 对象
      */
+    @Override
     public int update(Model model) {
         return getDao().updateByPrimaryKeySelective(model);
     }
@@ -38,6 +43,7 @@ public abstract class GenericServiceImpl<Model, PK> implements GenericService<Mo
      *
      * @param id 主键
      */
+    @Override
     public int delete(PK id) {
         return getDao().deleteByPrimaryKey(id);
     }
@@ -46,8 +52,8 @@ public abstract class GenericServiceImpl<Model, PK> implements GenericService<Mo
      * 通过主键, 查询对象
      *
      * @param id 主键
-     * @return
      */
+    @Override
     public Model selectById(PK id) {
         return getDao().selectByPrimaryKey(id);
     }

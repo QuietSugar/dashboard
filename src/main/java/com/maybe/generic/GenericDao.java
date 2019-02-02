@@ -7,6 +7,8 @@ package com.maybe.generic;
  * <p/>
  * Model : 代表数据库中的表 映射的Java对象类型
  * PK :代表对象的主键类型
+ *
+ * @author Created by HuoXu <2542610526@qq.com>
  */
 public interface GenericDao<Model, PK> {
 
@@ -14,6 +16,7 @@ public interface GenericDao<Model, PK> {
      * 插入对象
      *
      * @param model 对象
+     * @return 返回
      */
     int insertSelective(Model model);
 
@@ -21,6 +24,7 @@ public interface GenericDao<Model, PK> {
      * 更新对象
      *
      * @param model 对象
+     * @return 影响数量
      */
     int updateByPrimaryKeySelective(Model model);
 
@@ -28,6 +32,7 @@ public interface GenericDao<Model, PK> {
      * 通过主键, 删除对象
      *
      * @param id 主键
+     * @return 影响数量
      */
     int deleteByPrimaryKey(PK id);
 
@@ -35,7 +40,7 @@ public interface GenericDao<Model, PK> {
      * 通过主键, 查询对象
      *
      * @param id 主键
-     * @return
+     * @return 返回
      */
     Model selectByPrimaryKey(PK id);
 

@@ -4,91 +4,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserExample {
-    /**
-     * user
-     */
     protected String orderByClause;
 
-    /**
-     * user
-     */
     protected boolean distinct;
 
-    /**
-     * user
-     */
     protected List<Criteria> oredCriteria;
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public UserExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public String getOrderByClause() {
         return orderByClause;
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public boolean isDistinct() {
         return distinct;
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
         oredCriteria.add(criteria);
         return criteria;
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
         if (oredCriteria.size() == 0) {
@@ -97,19 +52,11 @@ public class UserExample {
         return criteria;
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
         return criteria;
     }
 
-    /**
-     *
-     * @mbggenerated 2019-01-22
-     */
     public void clear() {
         oredCriteria.clear();
         orderByClause = null;
@@ -117,7 +64,7 @@ public class UserExample {
     }
 
     /**
-     * user 2019-01-22
+     * user
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -662,7 +609,7 @@ public class UserExample {
     }
 
     /**
-     * user 2019-01-22
+     * user
      */
     public static class Criterion {
         private String condition;

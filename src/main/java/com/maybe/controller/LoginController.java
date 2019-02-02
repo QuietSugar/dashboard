@@ -39,8 +39,6 @@ public class LoginController {
     @RequestMapping("/login")
     @ResponseBody
     public LoginUser login(@RequestParam("username") String userName, @RequestParam("password") String password) {
-        LOGGER.info("接收到参数：username{},password：{}", userName, password);
-
 
         userService.login(userName,password);
 
