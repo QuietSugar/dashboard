@@ -29,7 +29,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Aspect
 @Component
 public class ControllerInterceptor {
-    private static final Logger log = LoggerFactory.getLogger(CommandController.class);
+    private static final Logger log = LoggerFactory.getLogger(ControllerInterceptor.class);
     private static final int MAX_JSON_SIZE_ = 5000;
 
     /**
@@ -63,7 +63,7 @@ public class ControllerInterceptor {
         if (ip == null) {
             ip = request.getRemoteHost();
         }
-        log.info("请求url: {}, ip: {} 请求参数:\n {} ", request.getRequestURI(), ip, params);
+        log.info("请求url: {}, ip: {} 请求参数:\n {} ", request.getRequestURI(), ip, params,null);
 
         Object result = null;
         try {
