@@ -21,7 +21,7 @@ import java.util.List;
  * @author Created by sugar on 2018/7/26
  */
 @RestController
-@RequestMapping(value = "statement", method = {RequestMethod.POST,RequestMethod.GET})
+@RequestMapping(value = "statement", method = {RequestMethod.POST,RequestMethod.GET,RequestMethod.OPTIONS})
 public class StatementController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatementController.class);
 

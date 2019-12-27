@@ -22,7 +22,7 @@ public class Statement {
     private String remarks;
 
     /**
-     * 
+     *
      */
     private String commandId;
 
@@ -96,16 +96,16 @@ public class Statement {
     }
 
     /**
-     * 
-     * @return command_id 
+     *
+     * @return command_id
      */
     public String getCommandId() {
         return commandId;
     }
 
     /**
-     * 
-     * @param commandId 
+     *
+     * @param commandId
      */
     public void setCommandId(String commandId) {
         this.commandId = commandId == null ? null : commandId.trim();
@@ -125,5 +125,17 @@ public class Statement {
      */
     public void setHot(Integer hot) {
         this.hot = hot;
+    }
+
+    @Override
+    public String toString() {
+        return "Statement{" +
+                "id='" + id + '\'' +
+                ", content='" + content + '\'' +
+                ", description='" + description + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", commandId='" + commandId + '\'' +
+                ", hot=" + hot +
+                '}';
     }
 }
